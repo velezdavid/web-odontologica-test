@@ -24,7 +24,7 @@ function App() {
   const [cedula, setCedula] = useState(null);
 
   const searchHM = async () => {
-    const url = `http://localhost:1337/api/historia-medicas?filters[Paciente][Cedula][$eq]=${cedula}&populate=*`;
+    const url = `https://glowing-charity-cfacec3f39.strapiapp.com/api/historia-medicas?filters[Paciente][Cedula][$eq]=${cedula}&populate=*`;
     const response = await axios.get(url);
     if (response.status === 200 && response?.data?.data.length > 0) {
       setData(response?.data?.data[0]);
