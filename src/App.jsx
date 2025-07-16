@@ -25,6 +25,8 @@ function App() {
 
   const searchHM = async () => {
     const url = `https://glowing-charity-cfacec3f39.strapiapp.com/api/historia-medicas?filters[Paciente][Cedula][$eq]=${cedula}&populate=*`;
+    // const url = `http://localhost:1337/api/historia-medicas?filters[Paciente][Cedula][$eq]=${cedula}&populate=*`;
+
     const response = await axios.get(url);
     if (response.status === 200 && response?.data?.data.length > 0) {
       setData(response?.data?.data[0]);
@@ -77,13 +79,13 @@ function App() {
             fontSize: '14px',
             borderRadius: '4px',
             border: 'none',
-            backgroundColor: '#1976d2',
-            color: '#fff',
+            backgroundColor: '#f0d90fff',
+            color: '#000',
             cursor: 'pointer',
             transition: 'background-color 0.3s',
           }}
-          onMouseOver={(e) => (e.target.style.backgroundColor = '#1565c0')}
-          onMouseOut={(e) => (e.target.style.backgroundColor = '#1976d2')}
+          onMouseOver={(e) => (e.target.style.backgroundColor = '#a2b30fff')}
+          onMouseOut={(e) => (e.target.style.backgroundColor = '#f0d90fff')}
           onClick={searchHM}
         >
           Buscar
@@ -138,9 +140,7 @@ function App() {
             {/* Datos del doctor y fecha */}
             <div style={{ marginBottom: '10px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <div>
-                  Dr./Dra.: _____________________________________________
-                </div>
+                <div>Dr. Carlos Torres</div>
                 <div>No. Ficha: {data.id}</div>
               </div>
               <div style={{ marginTop: '5px' }}>
@@ -225,8 +225,8 @@ function App() {
                       <span>{data.Paciente.Telefono}</span>
                     </td>
                     <td colSpan="2">
-                      <strong>Recomendado por:</strong>{' '}
-                      <span>{data.Paciente.RecomendadoPor || 'N/D'}</span>
+                      <strong>Correo:</strong>{' '}
+                      <span>{data.Paciente.Correo || 'N/D'}</span>
                     </td>
                   </tr>
                 </tbody>
@@ -398,14 +398,16 @@ function App() {
                 </tr>
               </thead>
               <tbody>
-                {[...Array(7)].map((_, i) => (
+                {data?.Piezas.map((item, i) => (
                   <tr key={i}>
-                    <td style={tdStyle}></td>
-                    <td style={tdStyle}></td>
-                    <td style={tdStyle}></td>
-                    <td style={tdStyle}></td>
-                    <td style={tdStyle}></td>
-                    <td style={tdStyle}></td>
+                    <td style={tdStyle}>
+                      {new Date(data.createdAt).toLocaleDateString()}
+                    </td>
+                    <td style={tdStyle}>{item.Tratamiento}</td>
+                    <td style={tdStyle}>{item.Pieza}</td>
+                    <td style={tdStyle}>{item.DetalleOdontologico}</td>
+                    <td style={tdStyle}>{item.ValorUnitario}</td>
+                    <td style={tdStyle}>{item.ValorTotal}</td>
                   </tr>
                 ))}
               </tbody>
