@@ -140,7 +140,7 @@ function App() {
             {/* Datos del doctor y fecha */}
             <div style={{ marginBottom: '10px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <div>Dr. Carlos Torres</div>
+                <div>Dr. Dalton Menéndez Salazar</div>
                 <div>No. Ficha: {data.id}</div>
               </div>
               <div style={{ marginTop: '5px' }}>
